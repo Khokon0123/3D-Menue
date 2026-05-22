@@ -1,6 +1,7 @@
 export interface MenuItemSize {
   label: string;
   price: number;
+  widthInches?: number;
 }
 
 export interface MenuItem {
@@ -13,6 +14,7 @@ export interface MenuItem {
   image: string;
   badge?: string;
   popular?: boolean;
+  physicalWidthInches?: number;
 }
 
 export interface CartItem {

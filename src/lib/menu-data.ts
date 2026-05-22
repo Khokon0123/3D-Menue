@@ -12,9 +12,9 @@ export const menuItems: MenuItem[] = [
     popular: true,
     badge: "Signature",
     sizes: [
-      { label: 'Small 10"', price: 16.99 },
-      { label: 'Medium 14"', price: 21.99 },
-      { label: 'Large 18"', price: 26.99 },
+      { label: 'Small 10"', price: 16.99, widthInches: 10 },
+      { label: 'Medium 14"', price: 21.99, widthInches: 14 },
+      { label: 'Large 18"', price: 26.99, widthInches: 18 },
     ],
   },
   {
@@ -27,9 +27,9 @@ export const menuItems: MenuItem[] = [
     image: "https://images.unsplash.com/photo-1628840042765-356cda07504e?w=800&q=80",
     popular: true,
     sizes: [
-      { label: 'Small 10"', price: 18.99 },
-      { label: 'Medium 14"', price: 23.99 },
-      { label: 'Large 18"', price: 28.99 },
+      { label: 'Small 10"', price: 18.99, widthInches: 10 },
+      { label: 'Medium 14"', price: 23.99, widthInches: 14 },
+      { label: 'Large 18"', price: 28.99, widthInches: 18 },
     ],
   },
   {
@@ -42,9 +42,9 @@ export const menuItems: MenuItem[] = [
     image: "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=800&q=80",
     badge: "Chef Pick",
     sizes: [
-      { label: 'Small 10"', price: 19.99 },
-      { label: 'Medium 14"', price: 24.99 },
-      { label: 'Large 18"', price: 29.99 },
+      { label: 'Small 10"', price: 19.99, widthInches: 10 },
+      { label: 'Medium 14"', price: 24.99, widthInches: 14 },
+      { label: 'Large 18"', price: 29.99, widthInches: 18 },
     ],
   },
   {
@@ -56,9 +56,9 @@ export const menuItems: MenuItem[] = [
     category: "pizza",
     image: "https://images.unsplash.com/photo-1513104890138-7c749659a591?w=800&q=80",
     sizes: [
-      { label: 'Small 10"', price: 17.99 },
-      { label: 'Medium 14"', price: 22.99 },
-      { label: 'Large 18"', price: 27.99 },
+      { label: 'Small 10"', price: 17.99, widthInches: 10 },
+      { label: 'Medium 14"', price: 22.99, widthInches: 14 },
+      { label: 'Large 18"', price: 27.99, widthInches: 18 },
     ],
   },
   {
@@ -71,6 +71,7 @@ export const menuItems: MenuItem[] = [
     image: "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=800&q=80",
     popular: true,
     badge: "Fan Favorite",
+    physicalWidthInches: 5,
   },
   {
     id: "b2",
@@ -81,6 +82,7 @@ export const menuItems: MenuItem[] = [
     category: "burger",
     image: "https://images.unsplash.com/photo-1553979459-d2229ba7433b?w=800&q=80",
     badge: "Premium",
+    physicalWidthInches: 5,
   },
   {
     id: "b3",
@@ -90,6 +92,7 @@ export const menuItems: MenuItem[] = [
     price: 14.99,
     category: "burger",
     image: "https://images.unsplash.com/photo-1561758033-d89a9ad46330?w=800&q=80",
+    physicalWidthInches: 5,
   },
   {
     id: "s1",
@@ -100,6 +103,7 @@ export const menuItems: MenuItem[] = [
     category: "sides",
     image: "https://images.unsplash.com/photo-1619960263640-8d374da6e4b9?w=800&q=80",
     popular: true,
+    physicalWidthInches: 8,
   },
   {
     id: "s2",
@@ -110,6 +114,7 @@ export const menuItems: MenuItem[] = [
     category: "sides",
     image: "https://images.unsplash.com/photo-1573080496219-bb080dd4f877?w=800&q=80",
     badge: "Must Try",
+    physicalWidthInches: 5,
   },
   {
     id: "s3",
@@ -119,6 +124,7 @@ export const menuItems: MenuItem[] = [
     price: 7.99,
     category: "sides",
     image: "https://images.unsplash.com/photo-1531749668029-2db88e4276c7?w=800&q=80",
+    physicalWidthInches: 6,
   },
 ];
 

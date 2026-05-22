@@ -1,11 +1,12 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
-import { X, Plus, Minus, ShoppingBag, RotateCcw } from "lucide-react";
+import { X, Plus, Minus, ShoppingBag, Camera } from "lucide-react";
 import { MenuItem } from "@/types";
 import { useCart } from "@/store/cart";
 import { motion, AnimatePresence } from "framer-motion";
+import ARCameraView from "./ARCameraView";
 
 interface ItemModalProps {
   item: MenuItem;
@@ -15,10 +16,8 @@ interface ItemModalProps {
 export default function ItemModal({ item, onClose }: ItemModalProps) {
   const [selectedSize, setSelectedSize] = useState(item.sizes?.[0]?.label ?? "");
   const [quantity, setQuantity] = useState(1);
-  const [show3D, setShow3D] = useState(false);
-  const [isRotating, setIsRotating] = useState(false);
+  const [showAR, setShowAR] = useState(false);
   const [addedToCart, setAddedToCart] = useState(false);
-  const plateRef = useRef<HTMLDivElement>(null);
   const { addItem } = useCart();
 
   const currentPrice = item.sizes
@@ -37,19 +36,6 @@ export default function ItemModal({ item, onClose }: ItemModalProps) {
     };
   }, [onClose]);
 
-  // 3D rotation animation
-  useEffect(() => {
-    if (!show3D || !isRotating) return;
-    let angle = 0;
-    const interval = setInterval(() => {
-      angle += 2;
-      if (plateRef.current) {
-        plateRef.current.style.transform = `rotateY(${angle}deg)`;
-      }
-    }, 16);
-    return () => clearInterval(interval);
-  }, [show3D, isRotating]);
-
   const handleAddToCart = () => {
     addItem({
       id: `${item.id}-${selectedSize}-${Date.now()}`,
@@ -67,6 +53,7 @@ export default function ItemModal({ item, onClose }: ItemModalProps) {
   return (
     <AnimatePresence>
       <motion.div
+        key="item-modal-backdrop"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
@@ -84,6 +71,7 @@ export default function ItemModal({ item, onClose }: ItemModalProps) {
         onClick={(e) => e.target === e.currentTarget && onClose()}
       >
         <motion.div
+          key="item-modal"
           initial={{ scale: 0.95, opacity: 0, y: 20 }}
           animate={{ scale: 1, opacity: 1, y: 0 }}
           exit={{ scale: 0.95, opacity: 0, y: 20 }}
@@ -100,7 +88,7 @@ export default function ItemModal({ item, onClose }: ItemModalProps) {
           }}
         >
           <div style={{ display: "flex", flexDirection: "row", flex: 1, overflow: "hidden" }} className="flex-col md:flex-row">
-            {/* Left - Image / 3D Preview */}
+            {/* Left — image */}
             <div
               style={{
                 position: "relative",
@@ -110,154 +98,42 @@ export default function ItemModal({ item, onClose }: ItemModalProps) {
                 overflow: "hidden",
               }}
             >
-              {!show3D ? (
-                <>
-                  <Image
-                    src={item.image}
-                    alt={item.name}
-                    fill
-                    sizes="(max-width: 768px) 100vw, 45vw"
-                    style={{ objectFit: "cover" }}
-                  />
-                  <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to top, rgba(26,18,8,0.5) 0%, transparent 60%)" }} />
-                  {/* 3D Preview button */}
-                  <button
-                    onClick={() => setShow3D(true)}
-                    style={{
-                      position: "absolute",
-                      bottom: 16,
-                      left: 16,
-                      background: "rgba(26,18,8,0.75)",
-                      backdropFilter: "blur(8px)",
-                      border: "1px solid rgba(255,255,255,0.15)",
-                      color: "white",
-                      padding: "8px 14px",
-                      borderRadius: 4,
-                      fontSize: 13,
-                      fontWeight: 600,
-                      cursor: "pointer",
-                      display: "flex",
-                      alignItems: "center",
-                      gap: 6,
-                      transition: "background 200ms",
-                    }}
-                  >
-                    <RotateCcw size={14} /> 3D Preview
-                  </button>
-                </>
-              ) : (
-                /* 3D Preview Placeholder */
-                <div
-                  style={{
-                    width: "100%",
-                    height: "100%",
-                    display: "flex",
-                    flexDirection: "column",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    background: "var(--color-dark-2)",
-                    padding: 24,
-                  }}
-                >
-                  {/* Virtual table */}
-                  <div style={{ position: "relative", width: "100%", perspective: 600 }}>
-                    {/* Table surface */}
-                    <div
-                      style={{
-                        width: "80%",
-                        height: 12,
-                        background: "linear-gradient(to bottom, #5C3D1E, #3B2210)",
-                        borderRadius: "50%",
-                        margin: "0 auto",
-                        marginTop: 120,
-                        boxShadow: "0 8px 24px rgba(0,0,0,0.5)",
-                      }}
-                    />
+              <Image
+                src={item.image}
+                alt={item.name}
+                fill
+                sizes="(max-width: 768px) 100vw, 45vw"
+                style={{ objectFit: "cover" }}
+              />
+              <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to top, rgba(26,18,8,0.5) 0%, transparent 60%)" }} />
 
-                    {/* Food item on table */}
-                    <div
-                      ref={plateRef}
-                      style={{
-                        position: "absolute",
-                        top: -60,
-                        left: "50%",
-                        transform: "translateX(-50%)",
-                        width: 140,
-                        height: 140,
-                        transformStyle: "preserve-3d",
-                        transition: isRotating ? "none" : "transform 300ms",
-                      }}
-                    >
-                      {/* Plate */}
-                      <div
-                        style={{
-                          width: 140,
-                          height: 140,
-                          borderRadius: "50%",
-                          background: "linear-gradient(135deg, #F5F0E8 0%, #E8E0D0 100%)",
-                          boxShadow: "0 4px 24px rgba(0,0,0,0.4), inset 0 -2px 8px rgba(0,0,0,0.1)",
-                          position: "relative",
-                          overflow: "hidden",
-                          display: "flex",
-                          alignItems: "center",
-                          justifyContent: "center",
-                        }}
-                      >
-                        <Image
-                          src={item.image}
-                          alt={item.name}
-                          fill
-                          sizes="140px"
-                          style={{ objectFit: "cover", borderRadius: "50%" }}
-                        />
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Controls */}
-                  <div style={{ display: "flex", gap: 10, marginTop: 16 }}>
-                    <button
-                      onClick={() => setIsRotating(!isRotating)}
-                      style={{
-                        background: isRotating ? "var(--color-accent)" : "rgba(255,255,255,0.1)",
-                        color: "white",
-                        border: "none",
-                        padding: "8px 14px",
-                        borderRadius: 4,
-                        fontSize: 13,
-                        fontWeight: 600,
-                        cursor: "pointer",
-                        display: "flex",
-                        alignItems: "center",
-                        gap: 6,
-                      }}
-                    >
-                      <RotateCcw size={13} /> {isRotating ? "Stop" : "Rotate"}
-                    </button>
-                    <button
-                      onClick={() => { setShow3D(false); setIsRotating(false); }}
-                      style={{
-                        background: "rgba(255,255,255,0.1)",
-                        color: "white",
-                        border: "none",
-                        padding: "8px 14px",
-                        borderRadius: 4,
-                        fontSize: 13,
-                        fontWeight: 600,
-                        cursor: "pointer",
-                      }}
-                    >
-                      Back to Photo
-                    </button>
-                  </div>
-                  <p style={{ color: "rgba(255,255,255,0.3)", fontSize: 11, marginTop: 8, textAlign: "center" }}>
-                    Interactive 3D preview
-                  </p>
-                </div>
-              )}
+              {/* AR View button */}
+              <button
+                onClick={() => setShowAR(true)}
+                style={{
+                  position: "absolute",
+                  bottom: 16,
+                  left: 16,
+                  background: "rgba(26,18,8,0.75)",
+                  backdropFilter: "blur(8px)",
+                  border: "1px solid rgba(255,255,255,0.15)",
+                  color: "white",
+                  padding: "8px 14px",
+                  borderRadius: 4,
+                  fontSize: 13,
+                  fontWeight: 600,
+                  cursor: "pointer",
+                  display: "flex",
+                  alignItems: "center",
+                  gap: 6,
+                  transition: "background 200ms",
+                }}
+              >
+                <Camera size={14} /> View in Your Space
+              </button>
             </div>
 
-            {/* Right - Details */}
+            {/* Right — details */}
             <div style={{ flex: 1, padding: "32px 28px", overflowY: "auto", display: "flex", flexDirection: "column", gap: 20, position: "relative" }}>
               {/* Close button */}
               <button
@@ -400,6 +276,16 @@ export default function ItemModal({ item, onClose }: ItemModalProps) {
           </div>
         </motion.div>
       </motion.div>
+
+      {/* AR camera overlay */}
+      {showAR && (
+        <ARCameraView
+          key="ar-camera-view"
+          item={item}
+          selectedSize={selectedSize}
+          onClose={() => setShowAR(false)}
+        />
+      )}
     </AnimatePresence>
   );
 }
