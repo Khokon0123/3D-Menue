@@ -34,7 +34,7 @@ export default function Hero() {
         style={{
           position: "absolute",
           inset: "-20%",
-          backgroundImage: "url(/images/radhuni.jpg)",
+          backgroundImage: "url(https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=1800&q=85)",
           backgroundSize: "cover",
           backgroundPosition: "center",
           opacity: 0.35,
