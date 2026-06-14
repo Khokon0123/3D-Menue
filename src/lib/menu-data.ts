@@ -62,6 +62,51 @@ export const menuItems: MenuItem[] = [
     ],
   },
   {
+    id: "p5",
+    name: "Meat Lovers",
+    description:
+      "Loaded with Italian sausage, pepperoni, crispy bacon crumbles, and ground beef on a smoky tomato base. A carnivore's dream.",
+    price: 21.99,
+    category: "pizza",
+    image: "https://images.unsplash.com/photo-1565299585323-38d6b0865b47?w=800&q=80",
+    badge: "Best Seller",
+    popular: true,
+    sizes: [
+      { label: 'Small 10"', price: 21.99, widthInches: 10 },
+      { label: 'Medium 14"', price: 26.99, widthInches: 14 },
+      { label: 'Large 18"', price: 31.99, widthInches: 18 },
+    ],
+  },
+  {
+    id: "p6",
+    name: "Truffle Mushroom",
+    description:
+      "Wild mushroom medley, black truffle cream, fontina cheese, caramelized onions, and fresh thyme. Earthy, rich, and unforgettable.",
+    price: 22.99,
+    category: "pizza",
+    image: "https://images.unsplash.com/photo-1534308983496-4fabb1a015ee?w=800&q=80",
+    badge: "Premium",
+    sizes: [
+      { label: 'Small 10"', price: 22.99, widthInches: 10 },
+      { label: 'Medium 14"', price: 27.99, widthInches: 14 },
+      { label: 'Large 18"', price: 32.99, widthInches: 18 },
+    ],
+  },
+  {
+    id: "p7",
+    name: "Buffalo Ranch",
+    description:
+      "Spicy buffalo chicken, cool ranch drizzle, red onion, celery, and blue cheese crumbles on a buttery garlic base. Game day essential.",
+    price: 20.99,
+    category: "pizza",
+    image: "https://images.unsplash.com/photo-1593560708920-61dd98c46a4e?w=800&q=80",
+    sizes: [
+      { label: 'Small 10"', price: 20.99, widthInches: 10 },
+      { label: 'Medium 14"', price: 25.99, widthInches: 14 },
+      { label: 'Large 18"', price: 30.99, widthInches: 18 },
+    ],
+  },
+  {
     id: "b1",
     name: "Smash Bros Classic",
     description:
@@ -92,6 +137,38 @@ export const menuItems: MenuItem[] = [
     price: 14.99,
     category: "burger",
     image: "https://images.unsplash.com/photo-1561758033-d89a9ad46330?w=800&q=80",
+    physicalWidthInches: 5,
+  },
+  {
+    id: "b4",
+    name: "Mushroom Swiss",
+    description:
+      "Juicy 6oz beef patty, sautéed cremini mushrooms, melted Swiss cheese, Dijon aioli, and baby spinach on a toasted pretzel bun.",
+    price: 14.99,
+    category: "burger",
+    image: "https://images.unsplash.com/photo-1550547660-d9450f859349?w=800&q=80",
+    physicalWidthInches: 5,
+  },
+  {
+    id: "b5",
+    name: "BBQ Bacon Stack",
+    description:
+      "Double smash patty, thick-cut smoky bacon, aged cheddar, crispy onion straws, and tangy house BBQ sauce. Stacked sky-high.",
+    price: 16.99,
+    category: "burger",
+    badge: "Must Try",
+    popular: true,
+    image: "https://images.unsplash.com/photo-1596662951482-0bc087432bf2?w=800&q=80",
+    physicalWidthInches: 5,
+  },
+  {
+    id: "b6",
+    name: "Avocado Bliss",
+    description:
+      "Fresh smashed avocado, pepper jack cheese, charred jalapeños, pico de gallo, and chipotle mayo on a toasted brioche bun.",
+    price: 15.49,
+    category: "burger",
+    image: "https://images.unsplash.com/photo-1571091718767-18b5b1457add?w=800&q=80",
     physicalWidthInches: 5,
   },
   {
